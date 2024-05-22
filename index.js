@@ -1,5 +1,6 @@
 const express = require('express');
 const { exec } = require('child_process');
+require('dotenv').config()
 
 const app = express();
 app.use(express.json());
