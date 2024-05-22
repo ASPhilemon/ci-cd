@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.post('/', (req, res) => {
-    console.log(req.body)
+    console.log(req.body.ref)
   const { ref } = req.body;
   if (ref === 'refs/heads/main') { // Check if the push is to the main branch
     exec(process.env.GROWTHSPRING_API_DEPLOY, (error, stdout, stderr) => {
