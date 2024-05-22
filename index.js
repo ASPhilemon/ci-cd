@@ -15,7 +15,7 @@ app.post('/', (req, res) => {
       }
       console.log(`stdout: ${stdout}`);
       console.error(`stderr: ${stderr}`);
-      res.status(200).send('Success');
+      res.status(200).send('Successfully deployed');
     });
   } else {
     res.status(200).send('No action taken');
