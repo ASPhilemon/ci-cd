@@ -1,6 +1,6 @@
 const express = require('express');
 const { exec } = require('child_process');
-const sendMail = require('./sendMail.js')
+const {sendMail} = require('./sendMail.js')
 require('dotenv').config()
 
 const app = express();
