@@ -9,7 +9,7 @@ app.use(express.json());
 
 console.log(process.env.GROWTHSPRING_API_DEPLOY)
 
-const recipients = ["philemonariko@gmail.com"]
+const recipients = ["philemonariko@gmail.com", "generalariko@gmail.com"]
 
 app.post('/', (req, res) => {
   console.log(req.body.ref)
