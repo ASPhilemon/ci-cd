@@ -17,7 +17,7 @@ app.post('/', (req, res) => {
   if (ref === 'refs/heads/main') { // Check if the push is to the main branch
     res.status(200).send('Deploying changes ...');
     exec(process.env.GROWTHSPRING_API_DEPLOY, (error, stdout, stderr) => {
-      if (error || stderr) {
+      if (error) {
         console.error(`exec error: ${error}`);
         recipients.forEach((recipient)=>{
           sendMail({
