@@ -3,10 +3,10 @@ const ejs = require('ejs')
 
 function sendMail(
   {
-    recipientEmail,
+    recipient,
     sender,
-    emailSubject,
-    emailTemplate,
+    subject,
+    template,
     context
   }
 )
@@ -22,15 +22,15 @@ function sendMail(
     }
   });
 
-  ejs.renderFile(emailTemplate, context, (err, data)=> {
+  ejs.renderFile(template, context, (err, data)=> {
     if(err) throw Error(err.message)
     emailBody = data
   } )
   
   var mailOptions = {
     from:`<${sender}@growthspringers.com>`,
-    to: recipientEmail,
-    subject: emailSubject,
+    to: recipient,
+    subject: subject,
     html: emailBody,
     replyTo: 'philemonariko@gmail.com'
   };

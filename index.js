@@ -12,7 +12,7 @@ console.log(process.env.GROWTHSPRING_API_DEPLOY)
 const recipients = ["philemonariko@gmail.com"]
 
 app.post('/', (req, res) => {
-    console.log(req.body.ref)
+  console.log(req.body.ref)
   const { ref } = req.body;
   if (ref === 'refs/heads/main') { // Check if the push is to the main branch
     res.status(200).send('Deploying changes ...');
@@ -21,10 +21,10 @@ app.post('/', (req, res) => {
         console.error(`exec error: ${error}`);
         recipients.forEach((recipient)=>{
           sendMail({
-            recipientEmail,
+            recipient,
             sender:"deployments",
-            emailSubject: "Deployment Unsuccessful",
-            emailTemplate:"deployment-unsuccessful.ejs",
+            subject: "Deployment Unsuccessful",
+            template:"deployment-unsuccessful.ejs",
             context: ""
           }
           )
@@ -32,10 +32,10 @@ app.post('/', (req, res) => {
       } else{
         recipients.forEach((recipient)=>{
           sendMail({
-            recipientEmail,
+            recipient,
             sender:"deployments",
-            emailSubject: "Deployment Successful",
-            emailTemplate:"deployment-successful.ejs",
+            subject: "Deployment Successful",
+            template:"deployment-successful.ejs",
             context: ""
           }
           )
