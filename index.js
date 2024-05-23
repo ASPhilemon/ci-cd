@@ -23,7 +23,7 @@ app.post('/', (req, res) => {
           sendMail({
             recipient,
             sender:"deployments",
-            subject: "Deployment Unsuccessful",
+            subject: `Deployment ${req.body.head_commit.message} Unsuccessful`,
             template:"deployment-unsuccessful.ejs",
             context: ""
           }
@@ -34,7 +34,7 @@ app.post('/', (req, res) => {
           sendMail({
             recipient,
             sender:"deployments",
-            subject: "Deployment Successful",
+            subject: `Deployment ${req.body.head_commit.message} Successful`,
             template:"deployment-successful.ejs",
             context: ""
           }
@@ -51,3 +51,4 @@ const PORT = process.env.PORT || 3018;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
