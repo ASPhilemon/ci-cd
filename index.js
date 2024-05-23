@@ -23,7 +23,7 @@ app.post('/', (req, res) => {
           sendMail({
             recipient,
             sender:"deployments",
-            subject: `Deployment ${req.body.head_commit.message} Unsuccessful`,
+            subject: `Deployment "${req.body.head_commit.message}" Unsuccessful`,
             template:"deployment-unsuccessful.ejs",
             context: ""
           }
@@ -34,7 +34,7 @@ app.post('/', (req, res) => {
           sendMail({
             recipient,
             sender:"deployments",
-            subject: `Deployment ${req.body.head_commit.message} Successful`,
+            subject: `Deployment "${req.body.head_commit.message}" Successful`,
             template:"deployment-successful.ejs",
             context: ""
           }
