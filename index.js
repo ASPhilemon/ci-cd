@@ -1,12 +1,14 @@
 const express = require('express');
 const { exec } = require('child_process');
-const {sendMail} = require('./sendMail.js')
+const {sendMail} = require('./sendMail.js');
+const { log } = require('console');
 require('dotenv').config()
 
 const app = express();
 app.use(express.json());
 
 console.log(process.env.GROWTHSPRING_API_DEPLOY)
+
 const recipients = ["philemonariko@gmail.com"]
 
 app.post('/', (req, res) => {
@@ -19,9 +21,10 @@ app.post('/', (req, res) => {
         console.error(`exec error: ${error}`);
         recipients.forEach((recipient)=>{
           sendMail({
-            recipient,
-            subject: "Deployment Unsuccessful",
-            template:"deployment-unsuccessful.ejs",
+            recipientEmail,
+            sender:"deployments",
+            emailSubject: "Deployment Unsuccessful",
+            emailTemplate:"deployment-unsuccessful.ejs",
             context: ""
           }
           )
@@ -29,9 +32,10 @@ app.post('/', (req, res) => {
       } else{
         recipients.forEach((recipient)=>{
           sendMail({
-            recipient,
-            subject: "Deployment Successful",
-            template:"deployment-successful.ejs",
+            recipientEmail,
+            sender:"deployments",
+            emailSubject: "Deployment Successful",
+            emailTemplate:"deployment-successful.ejs",
             context: ""
           }
           )
