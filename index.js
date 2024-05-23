@@ -1,11 +1,13 @@
 const express = require('express');
 const { exec } = require('child_process');
+const sendMail = require('./sendMail.js')
 require('dotenv').config()
 
 const app = express();
 app.use(express.json());
 
 console.log(process.env.GROWTHSPRING_API_DEPLOY)
+const recipients = ["philemonariko@gmail.com"]
 
 app.post('/', (req, res) => {
     console.log(req.body.ref)
@@ -13,11 +15,28 @@ app.post('/', (req, res) => {
   if (ref === 'refs/heads/main') { // Check if the push is to the main branch
     res.status(200).send('Deploying changes ...');
     exec(process.env.GROWTHSPRING_API_DEPLOY, (error, stdout, stderr) => {
-      if (error) {
+      if (error || stderr) {
         console.error(`exec error: ${error}`);
+        recipients.forEach((recipient)=>{
+          sendMail({
+            recipient,
+            subject: "Deployment Unsuccessful",
+            template:"deployment-unsuccessful.ejs",
+            context: ""
+          }
+          )
+        })
+      } else{
+        recipients.forEach((recipient)=>{
+          sendMail({
+            recipient,
+            subject: "Deployment Successful",
+            template:"deployment-successful.ejs",
+            context: ""
+          }
+          )
+        })
       }
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
     });
   } else {
     res.status(200).send('No action taken');
