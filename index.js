@@ -5,6 +5,8 @@ require('dotenv').config()
 const app = express();
 app.use(express.json());
 
+console.log(process.env.GROWTHSPRING_API_DEPLOY)
+
 app.post('/', (req, res) => {
     console.log(req.body.ref)
   const { ref } = req.body;
@@ -14,6 +16,8 @@ app.post('/', (req, res) => {
       if (error) {
         console.error(`exec error: ${error}`);
       }
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
     });
   } else {
     res.status(200).send('No action taken');
